@@ -1,0 +1,70 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    colors: {
+      dark00: '#000000',
+      dark01: '#242424',
+      dark02: '#2a2a2a',
+      dark03: '#323232',
+      dark04: '#3d3d3d',
+      dark05: '#474747',
+      dark06: '#525252',
+      dark07: '#575757',
+      dark08: '#616161',
+      dark09: '#6b6b6b',
+      dark10: '#757575',
+      dark11: '#7f7f7f',
+      dark12: '#8a8a8a',
+      accent00: '#ffb800',
+      accent60: '#926e12',
+      accent20: '#50421d',
+      success00: '#62e978',
+      success60: '#43874e',
+      success20: '#314c35',
+      info00: '#5191de',
+      info60: '#305a8a',
+      info20: '#263545',
+      warning00: '#FA5A5A',
+      warning60: '#923f3f',
+      warning20: '#502f2f',
+      alert00: '#e8b941',
+      alert60: '#89712e',
+      alert20: '#423d28',
+      light00: '#ffffff',
+      light01: '#f5f6f5',
+      light02: '#ededed',
+      transparent: 'transparent',
+    },
+    "fontSize": {
+      "4xs": "0.40625rem",
+      "3xs": "0.5rem",
+      "2xs": "0.625rem",
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.25rem",
+      "xl": "1.5625rem",
+      "2xl": "1.953125rem",
+      "3xl": "2.4412500858306885rem",
+      "4xl": "3.051875114440918rem",
+      "5xl": "3.815000057220459rem",
+      "6xl": "4.768125057220459rem"
+    },
+    fontFamily: {
+      'inter': ['Inter', 'Arial', 'Helvetica', 'sans-serif'],
+      'roboto': ['Roboto', 'Arial', 'Helvetica', 'sans-serif'],
+    },
+    extend: {
+      borderRadius: {
+        '3xl': '1.25rem',
+        '4xl': '1.5rem',
+        '5xl': '2rem',
+      }
+    }
+  },
+  plugins: [],
+}
