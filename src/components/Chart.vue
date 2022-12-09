@@ -1,6 +1,6 @@
 <template>
     <div class="chart bg-dark02 rounded-3xl p-5">
-        <div class="flex justify-between items-center w-full mb-3">
+        <div class="flex justify-between items-center w-full mb-3" v-if="title != ''">
             <h6 class="text-light02">
                 {{  title  }}
             </h6>
@@ -29,7 +29,7 @@
 
                     <g class="translate-y-3 translate-x-[40px]">
                         <path fill="none" stroke="#FFB80085" stroke-width="2px" :d="path" class="path" />
-                        <path fill="url(#myGradient)" stroke="none" stroke-width="2px" :d="path + fillPath"
+                        <path fill="url(#myGradient)" stroke="none" stroke-width="2px" :d="fillPath"
                             class="fadeIn" />
                         <g class="hoverable_items" v-for="(i, index) in points" :key="i.x + 'line' + i.y"
                             @click="selectItem(index)" :class="selectedItem === index ? 'selected' : ''">
@@ -100,47 +100,30 @@ export default {
     name: "LineChart",
     data() {
         return {
-            charts: {
-                // Aug: 0,
-                // Jul: 0,
-                // Jun: 4,
-                // May: 3,
-                // Apr: 1,
-                // Mar: 24,
-                // Feb: 3,
-                // Jan: 4,
-                // Dec: 3,
-                // Nov: 5,
-                // Oct: 0,
-                // Sep: 2,
-            },
             containerWidth: 0,
             space: 30,
             heigth: 250,
             points: [],
             path: "",
             fillPath: "",
+            fillPathPostNode: "",
             selectedItem: null,
             maxValue: "",
             loading: false,
         };
     },
     props: {
-        options: {
-            type: Array,
-            default: () => []
-        },
         title: {
             type: String,
-            default: 'Title'
+            default: ''
         },
-        // charts: {
-        //     type: Object,
-        //     default: () => { }
-        // },
+        charts: {
+            type: Object,
+            default: () => { }
+        },
         unit: {
             type: String,
-            default: 'Times'
+            default: ''
         },
     },
     methods: {
@@ -165,7 +148,7 @@ export default {
                 this.points.push({ x: this.space * startX, y: (this.normalizer(this.charts[key]) * increaserValue) * ((this.heigth - 56) / 10), key: key, value: this.charts[key] });
                 startX += 1;
             }
-            this.fillPath = `L${this.space * (startX - 1)},${0}`;
+            this.fillPathPostNode = `L${this.space * (startX - 1)},${0}`;
         },
         catmullRom2bezier(points) {
             let result = [];
@@ -219,10 +202,15 @@ export default {
             }
             this.path = result;
         },
+        createFillPath() {
+            const path = this.path.substring(1)
+            this.fillPath = `M${0},${0} ` + path + this.fillPathPostNode
+        },
         initializer() {
             this.getclientWidth();
             this.convertDataToPoints();
             this.createPath(this.points);
+            this.createFillPath()
             this.selectedItem = this.points.length - 1;
         }
     },
@@ -232,22 +220,6 @@ export default {
         if (Object.keys(this.charts).length) {
             this.initializer()
         }
-        setTimeout(() => {
-            this.charts = {
-                Aug: 0,
-                Jul: 0,
-                Jun: 4,
-                May: 3,
-                Apr: 1,
-                Mar: 12,
-                Feb: 3,
-                Jan: 4,
-                Dec: 3,
-                Nov: 5,
-                Oct: 0,
-                Sep: 2,
-            }
-        }, 5000)
     },
     watch: {
         charts: {

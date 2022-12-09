@@ -1,10 +1,29 @@
 <script setup>
+import { ref } from "vue";
 
-import Chart from './components/Chart.vue'
+const charts = ref({});
+setTimeout(() => {
+  const data = {
+    Aug: 5,
+    Jul: 0,
+    Jun: 4,
+    May: 3,
+    Apr: 1,
+    Mar: 12,
+    Feb: 3,
+    Jan: 4,
+    Dec: 3,
+    Nov: 5,
+    Oct: 0,
+    Sep: 2,
+  };
+  Object.assign(charts.value, data);
+}, 3000);
+import Chart from "./components/Chart.vue";
 </script>
 
 <template>
-  <Chart />
+  <Chart :charts="charts" title="Chart Title" unit="Times" />
 </template>
 
 <style scoped>
